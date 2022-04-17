@@ -1,4 +1,3 @@
-#git demo
 ## Starter Web Project
 
 
