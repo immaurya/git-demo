@@ -1,5 +1,5 @@
 # www.robotstxt.org/
-An Example Website
+A Website for experiments
 # Allow crawling of all content
 User-agent: *
 Disallow:
