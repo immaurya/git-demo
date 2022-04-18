@@ -1,5 +1,0 @@
-# www.robotstxt.org/
-A Website for experiments
-# Allow crawling of all content
-User-agent: *
-Disallow:
