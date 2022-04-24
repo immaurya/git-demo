@@ -1,5 +1,7 @@
 # www.robotstxt.org/
 
+Testing this stash thingy 
+
 # Allow crawling of all content
 User-agent: *
 Disallow:
