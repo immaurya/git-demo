@@ -1,0 +1,1023 @@
+============================== Shell Scripting = Introduction ======================
+( https://www.youtube.com/watch?v=cQepf9fY6cE&list=PSL1QulWo1RlYmaxcEqw5JhK3b-6rgdWO_ )
+
+cat /etc/shells (To check content of a shell)
+sh = born shell
+bash =born again shell,gnu   (interpreted compilled)
+
+which bash = /usr/bin/bash (to check path of bash)
+cd desktop/ > touch hello.sh
+double click on hello.sh or code . then enter or use any editor to open
+#! /bin/bash
+echo "hello world"
+
+./hello.sh (permission denied) > chmod +x hello.sh > ./hello.sh
+
+
+======================== Part 2 = Using Variables and Comments =====================
+( https://www.youtube.com/watch?v=vQv4W-JfrmQ )
+
+Comments(#) = comments are lines of code is not executed by script & are helpful to know some information about scripts
+we can write comment with # before start of a line 
+ex: # this is comment
+ex: echo "Hello World" # this is also comment
+
+Variable = it is container which stores some data inside
+it can be any string data, number or other kind of data 
+Two types of variable:
+1. system variable  2. user defined variable
+
+System variable are created and maintained by your Linux/unix operating system
+these are pre-defined variable which is define in capital cases
+
+User define variable are created and defined by user like us
+this is define in generally small cases but there is no strict provision of small cases, can also use capital cases
+
+system ex:
+echo $BASH (write & execute hello.sh, it show path of bash)
+echo $BASH_VERSION (it will show version of bash)
+echo $HOME (it will show home directory)
+echo $PWD (it will present working directory)
+or 
+echo Our shell name is $BASH
+echo Our shell version name is $BASH_VERSION
+echo Our home directory is $HOME
+echo Our present working directory is $PWD
+
+user ex:
+name=Mark
+echo The name is $name (write & execute hello.sh, it show name automatic)
+
+10val=10
+echo value $10val (write & execute, it show wrong value as 0val)
+user variable shouldn't start with numaric, must start with charector)
+
+
+============================= Part 3 = Read User Input =============================
+( https://www.youtube.com/watch?v=AcSkkNAsGCY )
+
+How can you reads input from your terminal in your script so to get input from the keyboard you use read command
+read command take input from keyboard and asign set to variable
+
+echo "Enter name : "
+read name
+echo "Entered name : $name"
+aftrer execute it will ask name, write name,it will show Entered name:
+
+echo "Enter names : "
+read name1 name2 name3
+echo "Names : $name1, $name2, $name3"
+after execute it will ask name, write 3names with space,it show names:
+
+read -p 'username : ' user_var        (p means prompt or line)
+echo "username : $user_var"
+after execute it will ask username in same line, write name,it show name
+
+read -p 'username : ' user_var
+read -sp 'password : ' pass_var
+echo "username : $user_var"
+echo "password : $pass_var"
+if don't want to show password while enter
+
+read -p 'username : ' user_var
+read -sp 'password : ' pass_var
+echo
+echo "username : $user_var"
+echo "password : $pass_var"
+if don't want to show password while enter & user/password see seprately 
+
+echo "Enter names : "
+read -a names			(a means array)
+echo "Names : ${names[0]}, ${names[2]}"      (to print variable use {})
+want to save those inputs inside an array
+
+echo "Enter name : "
+read
+echo "Name : $REPLY"
+read command w/o variable the input goes into built-in variable(reply)
+
+
+======================== Part 4 = Pass Arguments to a Bash-Script ==================
+( https://www.youtube.com/watch?v=BjBBfmDRakg )
+
+echo $1 $2 $3 ' > echo $1 $2 $3'	(pass 3 arguments)
+.hello.sh Mark Tom John
+it will print names (Mark Tom John > echo $1 $2 $3)
+
+echo $0 $1 $2 $3 ' > echo $1 $2 $3'
+.hello.sh Mark Tom John
+it will print names as  ./hello.sh Mark Tom John > echo $1 $2 $3
+(if add $0 it will consider ./hello.sh as $0)
+
+args=("$@")
+echo ${args[0]} ${args[1]} ${args[2]} or echo $@
+.hello.sh Mark Tom John
+it will print names as Mark Tom John  (args = arguments)
+
+
+args=("$@")
+echo $@
+echo $# (echo $# = To know number of arguments passed to scripts)
+
+
+============= Part 5 = If Statement (If then, If then else, If elif else) ==========
+( https://www.youtube.com/watch?v=OO2Avn1g5Tw )
+
+Basic structure:
+if [ condition ]
+then
+  statement	(it belongs to true condition)
+fi		(close script of if)
+
+
+Ex:
+count=10
+if [ $count -eq 9 ]
+then
+  echo "condition is true"
+fi
+./hello.sh (nothing will print because 10 is not equal to 9)
+
+count=10
+if [ $count -ne 9 ]
+then
+  echo "condition is true"
+fi
+./hello.sh (condition is true will print because 10 is not equal to 9)
+
+count=10
+if [ $count > 9 ]
+then
+  echo "condition is true"
+fi
+./hello.sh [show error because double bracket like (( must use]
+
+count=10
+if (($count >= 9 ))
+then
+  echo "condition is true"
+fi
+./hello.sh (condition is true will print cause 10 is greater than or= 9)
+
+word=abc
+if [ $word == "abccc" ]
+then
+  echo "condition is true"
+fi
+./hello.sh (nothing will print because abc is not equal to abccc)
+
+Use of else:
+word=a
+if [[ $word == "b" ]]
+then
+  echo "condition is true"
+else
+  echo "condition is false"
+fi
+./hello.sh (condition is false will print)
+
+
+Use of elif:
+word=a
+if [[ $word == "b" ]]
+then
+  echo "condition is true"
+elif [[$word == "a" ]]
+then
+  echo "condition is true"
+else
+  echo "condition is false"
+fi
+./hello.sh (condition true print cos either condition of then matching)
+
+
+Integer Comparision
+-eq - is equal to - if ["$a" -eq "$b" ]
+-ne - is not equal to - if [ "$a" -ne "$b" ]
+-gt - is greater than - if [ "$a" -gt "$b" ]
+-ge - is greater than or equal to - if [ "$a" -ge "$b" ]
+-lt - is less than - if [ "$a" -lt "$b" ]
+-le - is less than or equal to - if [ "$a" -le "$b" ]
+< - is less than - (("$a" < "$b"))
+<= - is less than or equal to - (("$a" <= "$b"))
+> - is greater than - (("$a" > "$b"))
+>= is greater than or equal to - (("$a" >= "$b"))
+
+String Comparision
+= - is equal to - if ["$a" = "$b" ]
+== - is equal to - if ["$a" == "$b" ]
+!= - is not equal to - if ["$a" != "$b" ]
+< - is less than, in ASSCII alphabetical order - if [["$a" < "$b" ]]
+> - is greater than, in ASCII alphabetical order - if [["$a" > "$b" ]]
+-z - string is null that is, has zero length
+
+
+
+========================= Part 6 = File test operators =============================
+( https://www.youtube.com/watch?v=uVi5o38NGi0 )
+
+if want to check file exist/regular or block/charector file  
+echo -e "Enter the name of the file : \c"
+read file_name
+
+if [ -e $file_name ]
+then
+  echo "$file_name found"
+ else
+  echo "$file_name not found"
+fi
+.hello.sh then file name (to check file exist or not,it print not found)
+
+/c = use to keep the curser on the same line after the end of echo
+-e = enable the enterpretation of this back slace, (to check file exist)
+
+-f = to check if it's a file or not
+-d = to check if it's a directory or not
+-b = to check if it's a block file or not
+-c = to check if it's a charector file or not
+-s = to check if file is empty or not
+-r = to check if file has read permission or not (not working)
+-w = to check if file has write permission or not (not working)
+-x = to check if file has execute permission or not
+
+charector file = a file which contains text/data 
+block file = it's a binary file like picture/video file
+
+
+
+============== Part 7 = How to append output to the end of text file ===============
+( https://www.youtube.com/watch?v=0Z72-LpvwjU )
+
+write a script to append some text to file whic already exist
+
+echo -e "Enter the name of the file : \c"
+read file_name
+
+if [ -f $file_name ]
+then
+    if [ -w $file_name ]
+    then
+	echo "Type some text data. To quit press ctrl+d."
+	cat >> $file_name
+    else
+	echo "The file do not have write permissions"
+    fi
+else
+    echo "$file_name not exists"
+fi
+./hello.sh & write :test (print as test not exist cos file isn't create)
+touch test > chmod -w test (remove write permission to see if script ok)
+./hello.sh & write :test (print as the file don't have write permisson)
+
+chmod +w test
+./hello.sh & test (print: Type some text data.To quit press ctrl+d)
+now write some text and press ctrl+d
+cat test (show the written lines)
+
+./hello.sh > test > write any text then ctrl+d
+now if check again file has added lines 
+
+ctrl+d = come out of the cate command
+
+
+
+========================== Part 8 = Logical 'AND' Operator =========================
+( https://www.youtube.com/watch?v=m4G3MLK8l4s )
+
+will check if age is greater than AND less than 30 using AND command (&)
+
+age=25
+
+if [ "$age" -gt 18 ] && [ "$age" -lt 30 ]  (also use -a instrad of &&)
+then
+  echo "valid age"
+else
+  echo "age not valid"
+fi
+./hello.sh and will print as valid age
+
+&& (one is and operator second is or operator)
+-a = AND Operator
+when we need 2 condition then use &&
+
+OR
+age=25
+
+if [["$age" -gt 18 && "$age -lt 30 ]]
+then
+  echo "valid age"
+else
+  echo "age not valid"
+fi
+
+
+========================= Part 9 = Logical 'OR' Operator ===========================
+( https://www.youtube.com/watch?v=RtbeGJfssGQ )
+
+will check if age is greater than OR less than 30 using and command (&)
+
+age=60
+
+if ["$age" -gt 18 ] || [ "$age -lt 30 ]
+then
+  echo "valid age"
+else
+  echo "age not valid"
+fi
+./hello.sh will print as valid age becos any one condition fulfilled
+( || = double pipes = OR operator/command )
+
+age=25
+
+if ["$age" -eq 18 ] || [ "$age -eq 30 ]
+then
+  echo "valid age"
+else
+  echo "age not valid"
+fi
+./hello.sh will print as age not valid becos both condition unfulfilled
+
+
+age=25
+
+if ["$age" -eq 18 -o "$age -eq 30 ]
+then
+  echo "valid age"
+else
+  echo "age not valid"
+fi
+./hello.sh will print as age not valid becos both condition unfulfilled
+
+-o = OR Operator/Command
+
+
+
+==================== Part 10 = Perform arithmetic operations =======================
+( https://www.youtube.com/watch?v=kr3WP_-bu8A )
+
+How to perform arithmetic operations in shell scripting
+
+num1=20
+num2=5
+
+echo $(( num1 + num2 ))
+./hello.sh and it will print as 25
+
+(( = double parenthasis
+
+
+num1=20
+num2=5
+
+echo $(( num1 + num2 ))
+echo $(( num1 - num2 ))
+echo $(( num1 * num2 ))
+echo $(( num1 / num2 ))
+echo $(( num1 % num2 ))
+
+
+num1=20
+num2=5
+
+echo $(expr num1 + num2 )
+echo $(expr num1 - num2 )
+echo $(expr num1 \* num2 ) [use \ with * while using expr]
+echo $(expr num1 / num2 )
+echo $(expr num1 % num2 )
+expr = expressions (check details by man bc)
+
+
+
+================= Part 11 = Floating point math operations in bash =================
+( https://www.youtube.com/watch?v=yqpY-Wk-i9k )
+
+How to perform arithmetic operations in decimal number
+bc = basic calculater
+man bc = to check description of bc
+
+num1=20.5
+num2=5
+
+echo "20.5+5" | bc
+./hello.sh and it will show as 25.5 which is correct
+
+
+num1=20.5
+num2=5
+
+echo "20.5+5" | bc
+echo "20.5-5" | bc
+echo "20.5*5" | bc
+echo "20.5/5" | bc  (for exact result, use echo "scale=2;20.5/5 | bc )
+echo "20.5%5" | bc
+Always use scale for devide 
+
+or 
+num1=20.5
+num2=5
+
+echo "$num1+$num2" | bc
+echo "$num1-$num2" | bc
+
+
+num=27
+
+echo "scale=2;sqrt($num)" | bc -l
+./hello.sh and it will show 5.9
+sqrt = square root
+-l = math library
+
+
+echo "scale=2;3^3" | bc -l (3^3 = power of 3 = 3*3*3, to calculate cube)
+
+
+
+========================== Part 12 = The case statement ============================
+( https://www.youtube.com/watch?v=dW3oYQbNFyI )
+
+How to use case statement while scripting
+it is better than alternate of multilevel if, else condition/statement
+
+Basic syntax of case statement:
+case expression in
+    pattern1 )
+        statements ;;
+	statements ;;
+    ...
+esac
+
+eveluation of rent of a vehicle:
+vehicle=$1
+
+case $vehicle in
+   "car" )
+	echo "Rent of $vehicle is 100 dollar" ;;
+   "bike" )
+	echo "Rent of $vehicle is 50 dollar" ;;
+   "truck" )
+	echo "Rent of $vehicle is 150 dollar" ;;
+   * )
+	echo "Unknown vehicle" ;;
+esac
+./hello.sh car and will show rent of car is 100 dollar
+* ) = pattern matching/regular expression (* = not mention )
+
+
+====================== Part 13 = The case statement example ========================
+( https://www.youtube.com/watch?v=dqaMU4v6KvQ )
+
+echo-e "Enter some charecter : \c"
+read value
+
+case $value in
+   [a-z] )
+	echo "User entered $value a to z" ;;
+   [A-Z] )
+	echo "User entered $value A to Z" ;;
+   [0-9] )
+	echo "User entered $value 0 to 9" ;;
+   ? )
+	echo "User entered $value special charecter" ;;
+   * )
+	echo "Unknown input" ;;
+esac
+./hello.sh then f and show User entered f a to z
+./hello.sh then K and show User entered K a to z (there is some issue)
+LANG=C ('LANG' environment variable indicate the language/encoding)
+where "C" is the language setting
+
+./hello.sh then K and now show User entered K A to Z whic is correct
+./hello.sh then 5 and show User entered 5 0 to 9
+./hello.sh then & and show User entered & special charector
+./hello.sh then abcd and show User entered unknown input
+
+? = it's pattern which expect any special charecter (1 letter charecter) 
+* (astrix) = more than 1 special charecter 
+can check for pattern matching/regular expression on internet
+
+
+
+============================ Part 14 = Array variables =============================
+https://www.youtube.com/watch?v=p4ZHbf4_6IU
+
+os=('ubuntu' 'windows' 'kali')
+echo "${os[@]}"
+./hello.sh & it will print elements of array (ubuntu windows kali)
+
+echo "${os[0]}" = to print any specific element (windows)
+echo "${os[1]}" = to print any specific element (kali)
+echo "${!os[@]}" = to print sequence of array's elements (like 0 1 2)
+echo "${#os[@]}" = to print length of array's elements (total 3 elements)
+
+os=('ubuntu' 'windows' 'kali')
+os[3]='mac'			 (to add elements to array at index 3)
+echo "${os[@]}"
+./hello.sh & it will print elements of array (ubuntu windows kali mac)
+
+os[0]='mac'		 (to replace element to array of index 0 which is ubuntu)
+unset os[2] = to remove an element(2 which is kali) from array
+
+
+
+============================ Part 15 = WHILE Loops =============================
+https://www.youtube.com/watch?v=iwEteYwKDfE
+
+while loops means if condition is true then only command will execute else not.
+loops are used to execute a list command repeatedly
+
+syntax : while [ condition ]
+do
+   command1
+   command2
+   commands3
+done
+
+n=1
+while [ $n -le 10 ]		or (( $n <= 10 ))
+do
+    echo "$n"
+    n=$(( n+1 ))		or (( n++ ))
+done
+./hello.sh & it will print 1 to 10 because 2nd term say it increase 1 by every time. And once condition get false then it says done (means task finished)
+
+
+
+============== Part 16 = using sleep and open terminal with WHILE Loops =============
+https://www.youtube.com/watch?v=L2eaBxAoMfQ
+
+n=1
+while [ $n -le 10 ]
+do
+    echo "$n"
+    n=$(( n+1 ))
+    sleep 1
+done
+./hello.sh & it will print 1 to 10 with pause of 1 second because 1 second timer set
+if we remove n=$(( n+1 )) then will regularly print 111111111 with pause of 1 second
+
+n=1
+while [ $n -le 3 ]
+do
+    echo "$n"
+    n=$(( n+1 ))
+    gnome-terminal &			or xterm &
+done
+./hello.sh & it will open 3 terminal
+
+
+
+======================= Part 17 = Read a file content in Bash ======================
+https://www.youtube.com/watch?v=A-rBp1OJSH4
+
+reading file using while loop:
+while read p
+do
+    echo $p
+done < hello.sh
+./hello.sh & it will show the content of the file via input redirection (p=parameter)
+
+or
+
+cat hello.sh | while read p
+do
+    echo $p
+done
+./hello.sh & it will show the content of the file via one variable (p = parameter)
+
+while IFS= read -r line
+do
+    echo $line
+done < hello.sh
+IFS = internal feel seperator used by shell to determine to do word splitting
+-r = it prevents backslace escave from being interpreted
+
+while IFS= read -r line
+do
+    echo $line
+done < /etc/host.conf
+(read any file in the system)
+
+
+
+=============================== Part 18 = UNTIL loop ===============================
+https://www.youtube.com/watch?v=PgVIvWIi89I
+
+ubtil loop means if condition is false then only command will execute else not.
+syntax : until [condition ]
+do
+    command1
+    command2
+    ...
+    ....
+    commandN
+done
+
+n=1
+until [ $n -ge 10 ]			or until (( $n > 10 ))
+do
+    echo $n
+    n=$(( n+1 ))			or (( n++ ))
+done
+./hello.sh & it print 1 to 9 because condition is false until 9
+
+
+
+================================ Part 19 = FOR loop ================================
+https://www.youtube.com/watch?v=mhhAbETJpag
+
+for VARIABLE in 1 2 3 4 5 .. N
+do
+    command1
+    command2
+    commandN
+done
+
+for VARIABLE in file1 file2 file3
+do
+    command1 on $VARIABLE
+    command2
+    commandN
+done
+
+for OUTPUT in $(Linux-Or-Unix-Command-Here)
+do
+    command1 on $OUTPUT
+    command2 on $OUTPUT
+    commandN
+done
+
+for (( EXP1; EXP2; EXP ))
+do
+    command1
+    command2
+    command3
+done
+
+
+for i in 1 2 3 4 5
+do
+   echo $i
+done
+./hello.sh & it will print 1 2 3 4 5
+
+for i in {1..10} & print 1 2 3 4 5 6 7 8 9 10 (can give range like 1..100)
+for i in {1 ..10..2} & print 1 3 5 7 9 (start..end..increment)
+echo ${BASH_VERSION} = to know bash version
+
+for (( i=0; i<5; i++ ))
+
+i=0 first expression in which we're initializing the value of i with 0
+i<5 2nd expression in which we're comparing/evaluating the value of i with 5
+i++ 3rd expression in which we're incrementing the value of i one by one
+
+
+==================== Part 20 = use FOR loop to execute commands ====================
+https://www.youtube.com/watch?v=qnmlnu-J3_g
+
+for command in ls pwd date
+do
+   echo "---------------$command---------------"
+   $comand
+done
+& it will print 1st command name then command (execute list of commands)
+
+
+for item in *				(* = astrix means it will select all item)
+do
+   if [ -d $item ]			(d = directory) (can also use f for file)
+   then
+	echo $item
+   fi
+done
+& it will show all the directory name in current location 
+
+
+=============================== Part 21 = Select loop ==============================
+https://www.youtube.com/watch?v=k3yTt0V01Mo
+
+select construct allow us to generate easy manues
+
+Syntax: select varName is list
+do
+    command1
+    command2
+    ....
+    ......
+    commandN
+done
+
+select name in mark john tom ben
+do
+    echo "$name selected"
+done
+& print as 1)mark 2)john 3)tom 4)ben & ask for select name(#?) so select like 2
+select loop often use with case statement
+
+
+select name in mark john tom ben
+do
+    case $name in
+    mark)
+	echo mark selected
+	;;
+    john)
+	echo john selected
+	;;    
+    tom)
+	echo tom selected
+	;;
+    ben)
+	echo ben selected
+	;;
+    *)
+	echo "Error please provide the number between 1-4"
+    esac
+done
+& print as 1)mark 2)john 3)tom 4)ben & ask for select name(#?) so select like 2
+
+
+
+=========================== Part 22 = Break and continue ===========================
+https://www.youtube.com/watch?v=OOG076Z5SU8
+
+break is used to exit the current loop before it's normal execution
+
+for (( i=1; i<=10; i++ ))
+do
+    if [ $i -gt 6 ]
+    then
+	break
+    fi
+    echo "$i"
+done
+print 1 2 3 4 5 6 & stop after 6 because of break command
+
+for (( i=1; i<=10; i++ ))
+do
+    if [ $i -eq 3 -o $i -eq 6 ]
+    then
+	continue
+    fi
+    echo "$i"
+done
+print 1 2 4 5 7 8 9 10, 3rd line condition not met untill 3 so it printed 1 2 but 3rd line condition met on 3 and there is no condition to print so it ignored last condition, same 6th line condition not met untill 6 so it printed 4 5 but 6th line condition met on 6 and there is no condition to print so it ignored last condition.
+
+
+================================ Part 23 = Functions ===============================
+https://www.youtube.com/watch?v=kvQpx0q3qhY
+
+a function is a subroutine or it's a code block that implement a set of operations
+there are two ways of using functions:
+1st way		function name(){
+		  commands
+		}
+
+2nd way		name(){
+		  commands
+		}
+
+function Hello(){
+  echo "Hello"
+}
+
+quit () {
+exit
+}
+it won't print anything because we didn't mention function name after the last line
+
+
+function Hello(){
+  echo "Hi"
+}
+
+quit () {
+exit
+}
+Hello
+it print Hi because we mentioned function name as Hello in the last line
+
+
+function Hello(){
+  echo "Hi"
+}
+
+quit () {
+exit
+}
+quite
+Hello
+echo "atoplay"
+won't print cause we've put quite 1st means script quited first before Hello function
+and chance of Hi/atoplay doesn't come so sequence of calling function is important
+declaration can be done in any sequence but function work as per sequence
+
+ways to passing arguments to function
+function print(){
+  echo $1
+}
+
+quit () {
+exit
+}
+print Hi
+quit
+./hello.sh & it print Hi (means it's passing arguments to function)
+
+
+function print(){
+  echo $1 $2 $3
+}
+
+quit () {
+exit
+}
+print Hi my world
+quit
+& it print Hi my world (means it's passing arguments to function)
+variable 1 ($1) is Hi, variable 2 ($2) is my, variable 3 ($3) is world 
+
+
+============================ Part 24 = Local variables =============================
+https://www.youtube.com/watch?v=16T4e4DME8I
+
+function print(){
+  name=$1
+  echo "the name is $name"
+}
+print Max
+& it print the name is Max
+
+
+function print(){
+  name=$1
+  echo "the name is $name"
+}
+
+name="Tom"
+echo "The name is $name"
+
+print Max
+it print the name is Tom then the name is Max(print Tom then Max because of sequence)
+
+
+function print(){
+  name=$1
+  echo "the name is $name"
+}
+
+name="Tom"
+echo "The name is $name : Before"
+
+print Max
+echo "The name is $name : After"
+it print the name is Tom:Before then the name is Max then the name is Max:After
+
+
+function print(){
+  local name=$1
+  echo "the name is $name"
+}
+
+name="Tom"					(global variable)
+echo "The name is $name : Before"
+
+print Max
+echo "The name is $name : After"
+it print the name is Tom:Before then the name is Max then the name is Tom:After
+because local variable (name) can only use in function & can't use outside function 
+local variable can't effect global variable
+
+
+============================ Part 25 = Function Example ============================
+https://www.youtube.com/watch?v=x8Zbspqm_x4
+
+usage() {
+  echo "You need to provide an argument : "
+  echo "usage : $0 file_name"
+}
+
+is_file_exists() {
+  local file="$1"
+  [[ -f "$file" ]] && return 0 || return 1
+}
+
+[[ $# -eq 0 ]] && usage
+
+if ( is_file_exists "$1")
+then
+    echo "File found"
+else
+    echo "File not found"
+fi
+
+./hello.sh name of file & it says file found
+
+
+
+============================ Part 26 = Readonly command ============================
+https://www.youtube.com/watch?v=EcldWxfoEmw
+we can make variable/function readonly means can't overwrite/change/modify
+
+var=31
+readonly var
+var=50
+./hello.sh & it shows var:readonly variable means can't change variable as 50
+
+
+hello() {
+  echo "Hello World"
+}
+
+readonly -f hello			(-f = to make function readonly)
+hello() {
+  echo "Hello World again"
+}
+./hello.sh & it shows hello:readonly function means can't change function
+
+
+readonly then ./hello.sh & shows all list of built-in variables(readonly) in machine
+readonly -f then ./hello.sh (to check list of readonly functions)
+
+
+============================ Part 27 = Signals and Traps ===========================
+https://www.youtube.com/watch?v=tF0Qau7zcsw
+echo "pid is $$"			($$ = used to print pid of the script)
+while (( COUNT < 10 ))
+do
+    sleep 10
+    (( COUNT ++ ))
+    echo $COUNT
+done
+exit 0
+./hello.sh & shows pid is 3699 & 1 2 3 and so on with pause of 10 second 
+
+control c = interupt signal (in signal term it's called SIGINT)
+control z = suspend signal (in signal term it's called SIGTSTP)
+kill -9 3699 (to kill the script) [-9 is also signal and called SIGKILL]
+man 7 signal = to know details/information of signal
+
+trap command provide the script to capture & interupt then clean it within the script
+
+trap "echo Exit command is detected " 0
+echo "Hello world"
+exit 0
+& show hello world, exit command is detected because script has printed hello world and task has finished
+
+
+trap "echo Exit signal is detected" SIGINT   (or can use 2 = SIGINT)
+echo "pid is $$"
+while (( COUNT < 10 ))
+do
+    sleep 10
+    (( COUNT ++ ))
+    echo $COUNT
+done
+exit 0
+& shows 1 2 3 when pressed ctrl+c shows exit signal is detected but didn't exit  
+
+trap "echo Exit signal is detected" SIGKILL   (or can use * = SIGKILL)
+./hello.sh then kill -9 pid (on duplicate terminal) & ./hello.sh page shows killed
+trap can't catch SIGKILL/STOP command
+
+
+how to delete a file whenever receive the signal
+; (semicoloun is used to combine 2 commands)
+0 = success signal
+
+
+file=/root/file_name
+trap "rm -f $file; exit" 0 2 9 15
+echo "pid is $$"
+while (( COUNT < 10 ))
+do
+    sleep 10
+    (( COUNT ++ ))
+    echo $COUNT
+done
+exit 0
+./hello.sh & kill -15 pid(on duplicate terminal), it deleted file when receive signal
+
+
+file=/root/file_name
+trap "rm -f $file && echo file deleted; exit" 0 2 9 15
+echo "pid is $$"
+while (( COUNT < 10 ))
+do
+    sleep 10
+    (( COUNT ++ ))
+    echo $COUNT
+done
+exit 0
+./hello.sh & kill -15 pid(on duplicate terminal), it deleted file with print
+trap (enter) = to know list of all listed/given traps
+trap - 0 2 15 = to remove trap command
+
+
+
+======================= Part 28 = How to debug a bash script =======================
+https://www.youtube.com/watch?v=yrIlmyRST8c
+
+bash -x ./hello.sh (use bash -x to debug the script's error with step by step visual)
+#!/usr/bin/bash -x (use -x at top{shibang} of the script to see process/visual steps)
+set -x activate debuging from the point it's(set -x) written {write at the top}
+set +x deactivate debuging from the point it's(set +x) written
