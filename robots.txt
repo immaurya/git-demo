@@ -4,6 +4,6 @@
 Something there
 -->
 
-# Allow crawling of all contents.
+# Allow crawling of all contents
 User-agent: *
 Disallow:
