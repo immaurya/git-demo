@@ -1,2 +1,2 @@
-33
-folder1
+*.log
+log/
