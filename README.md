@@ -3,7 +3,7 @@ showing how to use Git & GitHub together
 ## Introduction
 show different parts of git repository in web project
 ## Purpose
-copyright @2022
+just testing
 ## Deployment
 Deployment can on any server or even local file system
 ## How to Contribute
