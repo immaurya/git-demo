@@ -5,5 +5,5 @@ show different parts of git repository in web project
 ## Purpose
 adding line for example
 ## Deployment
-Deployment can on any server or even local file system
+then more changes from myfeature branch too
 ## How to Contribute
