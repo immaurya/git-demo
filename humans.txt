@@ -11,5 +11,5 @@
 
 # TECHNOLOGY COLOPHON
 
-thanks to students 
+please leave a review
     jQuery, Modernizr
