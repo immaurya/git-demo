@@ -11,5 +11,5 @@
 
 # TECHNOLOGY COLOPHON
 
-(jason@git.trainig) 
+thanks to students 
     jQuery, Modernizr
